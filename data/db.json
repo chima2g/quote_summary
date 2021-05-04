@@ -1,0 +1,36 @@
+{
+  "weather": [
+    {
+      "location": "W Pennines (Ringway)",
+      "degreeDays": "2228",
+      "groundTemp": "10",
+      "postcode": "M22",
+      "lat": "53.356877",
+      "lng": "-2.302534"
+    },
+    {
+      "location": "Severn Valley (Filton)",
+      "degreeDays": "1835",
+      "groundTemp": "10.6",
+      "postcode": "BS7",
+      "lat": "51.507864",
+      "lng": "-2.576467"
+    },
+    {
+      "location": "Thames Valley (Heathrow)",
+      "degreeDays": "2033",
+      "groundTemp": "11.3",
+      "postcode": "TW6",
+      "lat": "51.470022",
+      "lng": "-0.454296"
+    },
+    {
+      "location": "W Scotland (Abbotsinch)",
+      "degreeDays": "2494",
+      "groundTemp": "9.1",
+      "postcode": "PA3",
+      "lat": "55.862882",
+      "lng": "-4.427052"
+    }
+  ]
+}
