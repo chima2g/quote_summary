@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import useFetch from "./useFetch";
 
 let getRecommendedPump = (powerHeatLoss, heatPumps) => {
@@ -30,6 +31,12 @@ let getPowerHeatLoss = (location, heatLoss) => {
 let getHeatLoss = (house) =>
   house?.floorArea * house?.heatingFactor * house?.insulationFactor;
 
+let getTotalCosts = (costs) => {
+  return costs.reduce((accumulator, cost) => {
+    return accumulator + cost.cost;
+  }, 0);
+};
+
 const HouseSummary = ({ house, heatPumps }) => {
   const heatLoss = getHeatLoss(house);
 
@@ -61,6 +68,16 @@ const HouseSummary = ({ house, heatPumps }) => {
                 heatPumps
               ).label
             }
+            <br />
+            Cost Breakdown
+            {getRecommendedPump(
+              getPowerHeatLoss(location, heatLoss),
+              heatPumps
+            ).costs.map((cost, index) => (
+              <div key={uuidv4()}>
+                {cost.label}, £{cost.cost}
+              </div>
+            ))}
           </div>
         )}
       </div>
@@ -68,4 +85,10 @@ const HouseSummary = ({ house, heatPumps }) => {
   );
 };
 
-export { HouseSummary, getPowerHeatLoss, getHeatLoss, getRecommendedPump };
+export {
+  HouseSummary,
+  getPowerHeatLoss,
+  getHeatLoss,
+  getRecommendedPump,
+  getTotalCosts,
+};

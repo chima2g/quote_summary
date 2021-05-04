@@ -3,6 +3,7 @@ import {
   getHeatLoss,
   getPowerHeatLoss,
   getRecommendedPump,
+  getTotalCosts,
 } from "./HouseSummary";
 
 describe("getHeatLoss", () => {
@@ -70,3 +71,5 @@ describe("getRecommendedPump", () => {
     expect(getRecommendedPump(0, heatPumps).label).toEqual("5kW Package");
   });
 });
+
+describe("getTotalCosts", () => {});
