@@ -1,5 +1,11 @@
 import useFetch from "./useFetch";
 
+let getPowerHeatLoss = (location, heatLoss) => {
+  heatLoss = heatLoss ?? Number.NaN; //Set heatLoss to Nan if undefined or null
+  let powerHeatLoss = heatLoss / parseInt(location?.[0]?.degreeDays); //set powerHeatLoss to NaN if location or degreeDays is undefined or null
+  return powerHeatLoss;
+};
+
 const HouseSummary = ({ house }) => {
   const heatLoss =
     house.floorArea * house.heatingFactor * house.insulationFactor;
@@ -19,14 +25,17 @@ const HouseSummary = ({ house }) => {
       Estimated Heat Loss = {heatLoss} (kWh)
       <div>
         {error && <div>Warning: Could not find design region</div>}
-        {!error && location && <div>Insert required data here</div>}
-        <div>
-          Design Region = {house.designRegion}
-          <br />
-        </div>
+        {!error && location && (
+          <div>
+            Design Region = {house.designRegion}
+            <br />
+            Power Heat Loss = {getPowerHeatLoss(location, heatLoss)} (kW)
+            <br />
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default HouseSummary;
+export { HouseSummary, getPowerHeatLoss };
