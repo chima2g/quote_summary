@@ -1,4 +1,9 @@
-import { getHeatLoss, getPowerHeatLoss } from "./HouseSummary";
+import heatPumps from "./heatPumps";
+import {
+  getHeatLoss,
+  getPowerHeatLoss,
+  getRecommendedPump,
+} from "./HouseSummary";
 
 describe("getHeatLoss", () => {
   test("returns NaN when passed an undefined house", () => {
@@ -46,5 +51,22 @@ describe("getPowerHeatLoss", () => {
   });
   test("calculates powerHeatLoss when passed valid location and heatLoss", () => {
     expect(getPowerHeatLoss(location, heatLoss)).toEqual(8.944141689373296);
+  });
+});
+
+describe("getRecommendedPump", () => {
+  test("returns null when passed null powerHeatLoss", () => {
+    expect(getRecommendedPump(null, heatPumps)).toEqual(null);
+  });
+  //TODO: Empty heatPumps
+  test("returns null when passed undefined heatPumps", () => {
+    expect(getRecommendedPump(8.9, undefined)).toEqual(null);
+  });
+
+  test("returns correct heat pump when passed valid powerHeatLoss and heatPumps", () => {
+    expect(getRecommendedPump(8.9, heatPumps).label).toEqual("12kW Package");
+    expect(getRecommendedPump(8, heatPumps).label).toEqual("8kW Package");
+    expect(getRecommendedPump(17, heatPumps)).toEqual(null);
+    expect(getRecommendedPump(0, heatPumps).label).toEqual("5kW Package");
   });
 });

@@ -1,7 +1,28 @@
 import useFetch from "./useFetch";
 
+let getRecommendedPump = (powerHeatLoss, heatPumps) => {
+  let recommendedPump = null;
+
+  heatPumps = heatPumps ?? []; //Set heatPumps to empty array if heatPumps is undefined or null
+  powerHeatLoss = powerHeatLoss ?? Number.NaN; //Set powerHeatLoss to NaN if powerHeatLoss is undefined or null
+
+  heatPumps.forEach((pump) => {
+    if (!recommendedPump && pump.outputCapacity >= powerHeatLoss) {
+      recommendedPump = pump;
+    } else if (
+      recommendedPump &&
+      pump.outputCapacity < recommendedPump.outputCapacity &&
+      pump.outputCapacity >= powerHeatLoss
+    ) {
+      recommendedPump = pump;
+    }
+  });
+
+  return recommendedPump;
+};
+
 let getPowerHeatLoss = (location, heatLoss) => {
-  heatLoss = heatLoss ?? Number.NaN; //Set heatLoss to Nan if undefined or null
+  heatLoss = heatLoss ?? Number.NaN; //Set heatLoss to Nan if heatLoss is undefined or null
   let powerHeatLoss = heatLoss / parseInt(location?.[0]?.degreeDays); //set powerHeatLoss to NaN if location or degreeDays is undefined or null
   return powerHeatLoss;
 };
@@ -9,7 +30,7 @@ let getPowerHeatLoss = (location, heatLoss) => {
 let getHeatLoss = (house) =>
   house?.floorArea * house?.heatingFactor * house?.insulationFactor;
 
-const HouseSummary = ({ house }) => {
+const HouseSummary = ({ house, heatPumps }) => {
   const heatLoss = getHeatLoss(house);
 
   const { data: location, error } = useFetch(
@@ -33,6 +54,13 @@ const HouseSummary = ({ house }) => {
             <br />
             Power Heat Loss = {getPowerHeatLoss(location, heatLoss)} (kW)
             <br />
+            Recommended Heat Pump =
+            {
+              getRecommendedPump(
+                getPowerHeatLoss(location, heatLoss),
+                heatPumps
+              ).label
+            }
           </div>
         )}
       </div>
@@ -40,4 +68,4 @@ const HouseSummary = ({ house }) => {
   );
 };
 
-export { HouseSummary, getPowerHeatLoss, getHeatLoss };
+export { HouseSummary, getPowerHeatLoss, getHeatLoss, getRecommendedPump };
