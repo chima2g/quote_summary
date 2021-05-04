@@ -6,9 +6,11 @@ let getPowerHeatLoss = (location, heatLoss) => {
   return powerHeatLoss;
 };
 
+let getHeatLoss = (house) =>
+  house?.floorArea * house?.heatingFactor * house?.insulationFactor;
+
 const HouseSummary = ({ house }) => {
-  const heatLoss =
-    house.floorArea * house.heatingFactor * house.insulationFactor;
+  const heatLoss = getHeatLoss(house);
 
   const { data: location, error } = useFetch(
     `http://localhost:8000/weather?location=${house.designRegion}`
@@ -38,4 +40,4 @@ const HouseSummary = ({ house }) => {
   );
 };
 
-export { HouseSummary, getPowerHeatLoss };
+export { HouseSummary, getPowerHeatLoss, getHeatLoss };
