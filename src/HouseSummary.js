@@ -20,6 +20,10 @@ const HouseSummary = ({ house }) => {
       <div>
         {error && <div>Warning: Could not find design region</div>}
         {!error && location && <div>Insert required data here</div>}
+        <div>
+          Design Region = {house.designRegion}
+          <br />
+        </div>
       </div>
     </div>
   );
