@@ -44,10 +44,14 @@ const getTotalCosts = (costs) => {
 };
 
 const HouseSummary = ({ house, heatPumps }) => {
-  const heatLoss = getHeatLoss(house);
-
   const { data: location, error } = useFetch(
     `http://localhost:8000/weather?location=${house.designRegion}`
+  );
+
+  const heatLoss = getHeatLoss(house);
+  const recommendedPump = getRecommendedPump(
+    getPowerHeatLoss(location, heatLoss),
+    heatPumps
   );
 
   return (
@@ -67,31 +71,16 @@ const HouseSummary = ({ house, heatPumps }) => {
             <br />
             Power Heat Loss = {getPowerHeatLoss(location, heatLoss)} (kW)
             <br />
-            Recommended Heat Pump =
-            {
-              getRecommendedPump(
-                getPowerHeatLoss(location, heatLoss),
-                heatPumps
-              ).label
-            }
+            Recommended Heat Pump ={recommendedPump.label}
             <br />
             Cost Breakdown
-            {getRecommendedPump(
-              getPowerHeatLoss(location, heatLoss),
-              heatPumps
-            ).costs.map((cost, index) => (
+            {recommendedPump.costs.map((cost, index) => (
               <div key={uuidv4()}>
                 {cost.label}, £{cost.cost}
               </div>
             ))}
             <br />
-            Total Cost, including VAT = £
-            {getTotalCosts(
-              getRecommendedPump(
-                getPowerHeatLoss(location, heatLoss),
-                heatPumps
-              ).costs
-            )}
+            Total Cost, including VAT = £{getTotalCosts(recommendedPump.costs)}
           </div>
         )}
       </div>
