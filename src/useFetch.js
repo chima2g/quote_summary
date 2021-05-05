@@ -6,7 +6,7 @@ const useFetch = (url) => {
 
   useEffect(() => {
     fetch(url, {
-      //TODO: api key would ideally not be passed as a value
+      //TODO: headers would ideally be passed as a value
       "x-api-key": "f661f74e-20a7-4e9f-acfc-041cfb846505",
     })
       .then((res) => {
