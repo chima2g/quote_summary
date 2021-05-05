@@ -54,6 +54,12 @@ const HouseSummary = ({ house, heatPumps }) => {
     heatPumps
   );
 
+  const formatter = new Intl.NumberFormat("en-UK", {
+    style: "currency",
+    currency: "GBP",
+    minimumFractionDigits: 2,
+  });
+
   return (
     <div>
       --------------------------------------
@@ -80,7 +86,8 @@ const HouseSummary = ({ house, heatPumps }) => {
               </div>
             ))}
             <br />
-            Total Cost, including VAT = £{getTotalCosts(recommendedPump.costs)}
+            Total Cost, including VAT =
+            {formatter.format(getTotalCosts(recommendedPump.costs))}
           </div>
         )}
       </div>
