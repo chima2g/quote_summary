@@ -9,13 +9,13 @@ const getRecommendedPump = (powerHeatLoss, heatPumps) => {
 
   heatPumps.forEach((pump) => {
     if (!recommendedPump && pump.outputCapacity >= powerHeatLoss) {
-      recommendedPump = pump;
+      recommendedPump = pump; //Set initial recommendedPump
     } else if (
       recommendedPump &&
       pump.outputCapacity < recommendedPump.outputCapacity &&
       pump.outputCapacity >= powerHeatLoss
     ) {
-      recommendedPump = pump;
+      recommendedPump = pump; //Update recommendedPump if cheaper solution
     }
   });
 
@@ -77,7 +77,7 @@ const HouseSummary = ({ house, heatPumps }) => {
             <br />
             Power Heat Loss = {getPowerHeatLoss(location, heatLoss)} (kW)
             <br />
-            Recommended Heat Pump ={recommendedPump.label}
+            Recommended Heat Pump = {recommendedPump.label}
             <br />
             Cost Breakdown
             {recommendedPump.costs.map((cost) => (
