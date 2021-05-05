@@ -86,7 +86,7 @@ const HouseSummary = ({ house, heatPumps }) => {
               </div>
             ))}
             <br />
-            Total Cost, including VAT =
+            Total Cost, including VAT ={" "}
             {formatter.format(getTotalCosts(recommendedPump.costs))}
           </div>
         )}
