@@ -1,4 +1,5 @@
 //TODO: Remove heatPumps import
+//TODO: Add tests for useFetch
 import heatPumps from "./heatPumps";
 import {
   getHeatLoss,
@@ -23,7 +24,7 @@ describe("getHeatLoss", () => {
     expect(Number.isNaN(getHeatLoss({}))).toEqual(true);
     expect(Number.isNaN(getHeatLoss(inValidHouse))).toEqual(true);
   });
-  test("calculates heatLoss when passed a valid house", () => {
+  test("returns correct heatLoss when passed a valid house", () => {
     const house = {
       submissionId: "4cb3820a-7bf6-47f9-8afc-3adcac8752cd",
       designRegion: "Severn Valley (Filton)",
@@ -75,7 +76,7 @@ describe("getPowerHeatLoss", () => {
     expect(Number.isNaN(getPowerHeatLoss(undefined, null))).toEqual(true);
     expect(Number.isNaN(getPowerHeatLoss([], undefined))).toEqual(true);
   });
-  test("calculates powerHeatLoss when passed valid location and heatLoss", () => {
+  test("returns correct powerHeatLoss when passed valid location and heatLoss", () => {
     expect(getPowerHeatLoss(validLocation, heatLoss)).toEqual(
       8.944141689373296
     );
@@ -154,7 +155,7 @@ describe("getTotalCosts", () => {
     expect(getTotalCosts(multipleCosts)).toEqual(8188 * 1.05);
   });
 
-  test("returns 0 value when passed costs totalling 0", () => {
+  test("returns 0 when passed costs totalling 0", () => {
     expect(getTotalCosts(freeCost)).toEqual(0);
   });
 });
