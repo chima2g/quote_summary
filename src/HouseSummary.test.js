@@ -72,4 +72,58 @@ describe("getRecommendedPump", () => {
   });
 });
 
-describe("getTotalCosts", () => {});
+describe("getTotalCosts", () => {
+  const singleCost = [
+    {
+      label:
+        "Design & Supply of your Air Source Heat Pump System Components (12kW)",
+      cost: 5138,
+    },
+  ];
+
+  const multipleCosts = [
+    {
+      label:
+        "Design & Supply of your Air Source Heat Pump System Components (12kW)",
+      cost: 5138,
+    },
+    {
+      label: "Installation of your Air Source Heat Pump and Hot Water Cylinder",
+      cost: 2900,
+    },
+    {
+      label: "Supply & Installation of your Homely Smart Thermostat",
+      cost: 150,
+    },
+  ];
+
+  const freeCost = [
+    {
+      label:
+        "Design & Supply of your Air Source Heat Pump System Components (12kW)",
+      cost: 0,
+    },
+  ];
+
+  test("returns NaN when passed invalid costs", () => {
+    expect(Number.isNaN(getTotalCosts(undefined))).toEqual(true);
+    expect(Number.isNaN(getTotalCosts(null))).toEqual(true);
+  });
+
+  test("returns NaN when passed costs that do not contain at least one cost", () => {
+    expect(Number.isNaN(getTotalCosts([{}]))).toEqual(true);
+    expect(Number.isNaN(getTotalCosts([]))).toEqual(true);
+  });
+
+  test("returns correct value when passed a single cost", () => {
+    expect(getTotalCosts(singleCost)).toEqual(5138 * 1.05);
+  });
+
+  test("returns correct value when passed multiple costs", () => {
+    expect(getTotalCosts(multipleCosts)).toEqual(8188 * 1.05);
+  });
+
+  test("returns 0 value when passed costs totalling 0", () => {
+    expect(getTotalCosts(freeCost)).toEqual(0);
+  });
+});

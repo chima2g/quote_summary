@@ -32,9 +32,15 @@ let getHeatLoss = (house) =>
   house?.floorArea * house?.heatingFactor * house?.insulationFactor;
 
 let getTotalCosts = (costs) => {
-  return costs.reduce((accumulator, cost) => {
-    return accumulator + cost.cost;
+  let total = costs?.reduce((accumulator, cost) => {
+    return accumulator + cost?.cost;
   }, 0);
+
+  total = total ?? Number.NaN; //Set total to NaN if costs is undefined or null
+
+  if (Array.isArray(costs) && !costs.length) total = Number.NaN; //Set total to NaN if costs is empty, assuming all pumps should have a cost
+
+  return total * 1.05;
 };
 
 const HouseSummary = ({ house, heatPumps }) => {
@@ -78,6 +84,14 @@ const HouseSummary = ({ house, heatPumps }) => {
                 {cost.label}, £{cost.cost}
               </div>
             ))}
+            <br />
+            Total Cost, including VAT = £
+            {getTotalCosts(
+              getRecommendedPump(
+                getPowerHeatLoss(location, heatLoss),
+                heatPumps
+              ).costs
+            )}
           </div>
         )}
       </div>
