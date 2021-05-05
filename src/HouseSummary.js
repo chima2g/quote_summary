@@ -74,7 +74,7 @@ const HouseSummary = ({ house, heatPumps }) => {
             Recommended Heat Pump ={recommendedPump.label}
             <br />
             Cost Breakdown
-            {recommendedPump.costs.map((cost, index) => (
+            {recommendedPump.costs.map((cost) => (
               <div key={uuidv4()}>
                 {cost.label}, £{cost.cost}
               </div>
