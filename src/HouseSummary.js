@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import useFetch from "./useFetch";
 
-let getRecommendedPump = (powerHeatLoss, heatPumps) => {
+const getRecommendedPump = (powerHeatLoss, heatPumps) => {
   let recommendedPump = null;
 
   heatPumps = heatPumps ?? []; //Set heatPumps to empty array if heatPumps is undefined or null
@@ -22,16 +22,16 @@ let getRecommendedPump = (powerHeatLoss, heatPumps) => {
   return recommendedPump;
 };
 
-let getPowerHeatLoss = (location, heatLoss) => {
+const getPowerHeatLoss = (location, heatLoss) => {
   heatLoss = heatLoss ?? Number.NaN; //Set heatLoss to Nan if heatLoss is undefined or null
-  let powerHeatLoss = heatLoss / parseInt(location?.[0]?.degreeDays); //set powerHeatLoss to NaN if location or degreeDays is undefined or null
+  const powerHeatLoss = heatLoss / parseInt(location?.[0]?.degreeDays); //set powerHeatLoss to NaN if location or degreeDays is undefined or null
   return powerHeatLoss;
 };
 
-let getHeatLoss = (house) =>
+const getHeatLoss = (house) =>
   house?.floorArea * house?.heatingFactor * house?.insulationFactor;
 
-let getTotalCosts = (costs) => {
+const getTotalCosts = (costs) => {
   let total = costs?.reduce((accumulator, cost) => {
     return accumulator + cost?.cost;
   }, 0);

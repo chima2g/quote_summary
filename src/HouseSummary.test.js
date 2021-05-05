@@ -8,15 +8,15 @@ import {
 
 describe("getHeatLoss", () => {
   test("returns NaN when passed an undefined house", () => {
-    let house = undefined;
+    const house = undefined;
     expect(Number.isNaN(getHeatLoss(house))).toEqual(true);
   });
   test("returns NaN when passed a house missing insulationFactor property", () => {
-    let house = {};
+    const house = {};
     expect(Number.isNaN(getHeatLoss(house))).toEqual(true);
   });
   test("calculates heatLoss when passed valid house", () => {
-    let house = {
+    const house = {
       submissionId: "4cb3820a-7bf6-47f9-8afc-3adcac8752cd",
       designRegion: "Severn Valley (Filton)",
       floorArea: 125,
@@ -29,8 +29,8 @@ describe("getHeatLoss", () => {
 });
 
 describe("getPowerHeatLoss", () => {
-  let heatLoss = 16412.5;
-  let location = [
+  const heatLoss = 16412.5;
+  const location = [
     {
       location: "Severn Valley (Filton)",
       degreeDays: "1835",
