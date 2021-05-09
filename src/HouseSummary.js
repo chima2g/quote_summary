@@ -24,7 +24,7 @@ const getRecommendedPump = (powerHeatLoss, heatPumps) => {
 
 const getPowerHeatLoss = (location, heatLoss) => {
   heatLoss = heatLoss ?? Number.NaN; //Set heatLoss to Nan if heatLoss is undefined or null
-  const powerHeatLoss = heatLoss / parseInt(location?.[0]?.degreeDays); //set powerHeatLoss to NaN if location or degreeDays is undefined or null
+  const powerHeatLoss = heatLoss / parseInt(location?.location?.degreeDays); //set powerHeatLoss to NaN if location or degreeDays is undefined or null
   return powerHeatLoss;
 };
 
