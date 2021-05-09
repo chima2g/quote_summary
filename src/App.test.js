@@ -1,6 +1,5 @@
 //TODO: Create your own proxy
 //TOOD: Put the requests in the correct format
-//TODO: in usefetch, have queries changed, so they are broken out of their array
 //TODO: Mocking out requests
 import { render, waitFor } from "@testing-library/react";
 import App from "./App";
@@ -10,12 +9,6 @@ let getByTestId;
 beforeEach(() => {
   const component = render(<App />);
   getByTestId = component.getByTestId;
-
-  // global.fetch = jest.fn((_, options) => {
-  //   return Promise.resolve({
-  //     json: () => Promise.resolve(mockPostsData),
-  //   });
-  // });
 });
 
 describe("App", () => {
