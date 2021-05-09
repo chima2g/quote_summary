@@ -1,10 +1,12 @@
 //TODO: Remove heatPumps import
+
 import heatPumps from "./heatPumps";
 import {
   getHeatLoss,
   getPowerHeatLoss,
   getRecommendedPump,
   getTotalCosts,
+  HouseSummary,
 } from "./HouseSummary";
 
 describe("getHeatLoss", () => {
@@ -38,8 +40,8 @@ describe("getHeatLoss", () => {
 
 describe("getPowerHeatLoss", () => {
   const heatLoss = 16412.5;
-  const validLocation = [
-    {
+  const validLocation = {
+    location: {
       location: "Severn Valley (Filton)",
       degreeDays: "1835",
       groundTemp: "10.6",
@@ -47,7 +49,7 @@ describe("getPowerHeatLoss", () => {
       lat: "51.507864",
       lng: "-2.576467",
     },
-  ];
+  };
 
   const invalidLocation = [
     {

@@ -64,16 +64,22 @@ const HouseSummary = ({ house, heatPumps }) => {
     <div>
       --------------------------------------
       <br />
-      {house.submissionId}
+      <div data-testid={`sid-${house.submissionId}`}>{house.submissionId}</div>
       <br />
       --------------------------------------
       <br />
-      Estimated Heat Loss = {heatLoss} (kWh)
+      <div>Estimated Heat Loss = {heatLoss} (kWh)</div>
       <div>
-        {error && <div>Warning: Could not find design region</div>}
+        {error && (
+          <div data-testid={`dr-${house.submissionId}`}>
+            Warning: Could not find design region
+          </div>
+        )}
         {!error && location && (
           <div>
-            Design Region = {house.designRegion}
+            <div data-testid={`dr-${house.submissionId}`}>
+              Design Region = {house.designRegion}
+            </div>
             <br />
             Power Heat Loss = {getPowerHeatLoss(location, heatLoss)} (kW)
             <br />
