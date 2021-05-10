@@ -1,5 +1,4 @@
 //TODO: Create your own proxy
-//TOOD: Put the requests in the correct format
 //TODO: Mocking out requests
 import { render, waitFor } from "@testing-library/react";
 import App from "./App";
