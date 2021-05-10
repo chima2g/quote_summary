@@ -1,13 +1,12 @@
 //TODO: Remove heatPumps import
-
 import heatPumps from "./heatPumps";
+import HouseSummary from "./HouseSummary";
 import {
   getHeatLoss,
   getPowerHeatLoss,
   getRecommendedPump,
   getTotalCosts,
-  HouseSummary,
-} from "./HouseSummary";
+} from "./calculators";
 
 describe("getHeatLoss", () => {
   const inValidHouse = {
