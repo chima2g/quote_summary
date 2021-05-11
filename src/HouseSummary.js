@@ -24,13 +24,6 @@ const HouseSummary = ({ house, heatPumps }) => {
     minimumFractionDigits: 2,
   });
 
-  let designRegionText = "";
-
-  if (error) designRegionText = "Warning: Could not find design region";
-  else designRegionText = location ?? `Design Region = ${house.designRegion}`;
-
-  const isDataRetrieved = !error && location;
-
   return (
     <div>
       --------------------------------------
@@ -40,25 +33,34 @@ const HouseSummary = ({ house, heatPumps }) => {
       --------------------------------------
       <br />
       <div>Estimated Heat Loss = {heatLoss} (kWh)</div>
-      <div data-testid={`dr-${house.submissionId}`}>{designRegionText}</div>
-      {isDataRetrieved && (
-        <div>
-          <br />
-          Power Heat Loss = {getPowerHeatLoss(location, heatLoss)} (kW)
-          <br />
-          Recommended Heat Pump = {recommendedPump.label}
-          <br />
-          Cost Breakdown
-          {recommendedPump.costs.map((cost) => (
-            <div key={uuidv4()}>
-              {cost.label}, £{cost.cost}
+      <div>
+        {error && (
+          <div data-testid={`dr-${house.submissionId}`}>
+            Warning: Could not find design region
+          </div>
+        )}
+        {!error && location && (
+          <div>
+            <div data-testid={`dr-${house.submissionId}`}>
+              Design Region = {house.designRegion}
             </div>
-          ))}
-          <br />
-          Total Cost, including VAT ={" "}
-          {formatter.format(getTotalCosts(recommendedPump.costs))}
-        </div>
-      )}
+            <br />
+            Power Heat Loss = {getPowerHeatLoss(location, heatLoss)} (kW)
+            <br />
+            Recommended Heat Pump = {recommendedPump.label}
+            <br />
+            Cost Breakdown
+            {recommendedPump.costs.map((cost) => (
+              <div key={uuidv4()}>
+                {cost.label}, £{cost.cost}
+              </div>
+            ))}
+            <br />
+            Total Cost, including VAT ={" "}
+            {formatter.format(getTotalCosts(recommendedPump.costs))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
