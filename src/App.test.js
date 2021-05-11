@@ -46,6 +46,7 @@ describe("App", () => {
     );
   });
 
+  //Skipped due to warning messages despite tests passing
   it.skip("displays a warning message when a region cannot be found", async () => {
     await waitFor(() =>
       expect(getByTestId(`dr-${testHouses[2].submissionId}`).textContent).toBe(
